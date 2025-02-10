@@ -1,13 +1,15 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij.platform") version "2.0.0"
+    id("org.jetbrains.kotlin.jvm") version "2.1.10"
+    id("org.jetbrains.intellij.platform") version "2.2.1"
 }
 
 group = "com.moseoh"
-version = "0.0.18"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -28,22 +30,26 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 
-    implementation("org.freemarker:freemarker:2.3.33")
-    implementation("org.jsoup:jsoup:1.15.4")
+    implementation("org.freemarker:freemarker:2.3.34")
+    implementation("org.jsoup:jsoup:1.18.3")
 
-    testImplementation("io.mockk:mockk:1.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
+    testImplementation("io.mockk:mockk:1.13.16")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
     testImplementation("junit:junit:4.13.2")
+
 }
 
 tasks {
     // Set the JVM compatibility versions
     withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
+
+    withType<KotlinCompile> {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
     }
 
     withType<Test> {
@@ -51,8 +57,8 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("231.*")
-        untilBuild.set("242.*")
+        sinceBuild.set("242.1")
+        untilBuild.set("251.*")
     }
 
     signPlugin {
