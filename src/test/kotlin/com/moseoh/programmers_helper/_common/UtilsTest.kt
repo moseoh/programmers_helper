@@ -3,7 +3,7 @@ package com.moseoh.programmers_helper._common
 import com.moseoh.programmers_helper._common.Utils.removeAll
 import com.moseoh.programmers_helper._common.Utils.removeComment
 import com.moseoh.programmers_helper._common.Utils.removeFunctionInBracket
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
 class UtilsTest {

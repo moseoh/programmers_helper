@@ -10,7 +10,7 @@
 <a href="https://plugins.jetbrains.com/plugin/21278-programmers-helper"><img src="https://img.shields.io/jetbrains/plugin/d/21278-programmers-helper?style=flat-square"></a>
 <a href="https://plugins.jetbrains.com/plugin/21278-programmers-helper"><img src="https://img.shields.io/jetbrains/plugin/r/stars/21278-programmers-helper?style=flat-square"></a>
 <a href="https://plugins.jetbrains.com/plugin/21278-programmers-helper"><img src="https://img.shields.io/jetbrains/plugin/v/21278-programmers-helper?style=flat-square"></a>
-<img src="https://img.shields.io/github/actions/workflow/status/azqazq195/programmers_helper/release.yml?branch=master&style=flat-square">
+<img src="https://img.shields.io/github/actions/workflow/status/moseoh/programmers_helper/release.yml?branch=master&style=flat-square">
 </p>
 <br>
 

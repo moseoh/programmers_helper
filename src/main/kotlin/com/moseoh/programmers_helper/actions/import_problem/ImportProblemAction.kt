@@ -70,7 +70,7 @@ class ImportProblemAction : AnAction(
                     append("\t- 오래된 문제의 경우 양식이 달라 읽을 수 없음\n")
                     append("\t- 기출 문제의 경우 양식이 달라 읽을 수 없음\n")
                     append("언어를 지원하지 않는 경우를 제외하고 문제 url을 제보해 주세요.\n")
-                    append("https://github.com/azqazq195/programmers_helper/issues/new")
+                    append("https://github.com/moseoh/programmers_helper/issues/new")
                 },
                 "에러"
             )

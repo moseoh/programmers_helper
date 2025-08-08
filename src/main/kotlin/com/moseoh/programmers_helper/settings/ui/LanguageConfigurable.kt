@@ -53,7 +53,7 @@ class LanguageConfigurable : Configurable {
             }
 
             row {
-                link("${get("github")} ") { BrowserUtil.browse("https://github.com/azqazq195/programmers_helper") }
+                link("${get("github")} ") { BrowserUtil.browse("https://github.com/moseoh/programmers_helper") }
             }
         }
     }

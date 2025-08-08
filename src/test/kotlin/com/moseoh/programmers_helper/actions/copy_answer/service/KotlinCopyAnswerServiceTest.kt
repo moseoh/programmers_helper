@@ -5,7 +5,7 @@ import com.moseoh.programmers_helper.settings.model.Language
 import com.moseoh.programmers_helper.settings.model.ProgrammersHelperSettings
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
 
