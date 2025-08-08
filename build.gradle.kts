@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.moseoh"
-version = "0.0.19"
+version = "0.2.0"
 
 repositories {
     mavenCentral()

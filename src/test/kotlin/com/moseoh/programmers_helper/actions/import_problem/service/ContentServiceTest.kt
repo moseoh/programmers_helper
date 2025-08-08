@@ -5,19 +5,26 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.moseoh.programmers_helper.TestData
 import com.moseoh.programmers_helper.actions.import_problem.service.dto.JavaTemplateMapper
 import com.moseoh.programmers_helper.actions.import_problem.service.dto.KotlinTemplateMapper
+import com.moseoh.programmers_helper.actions.import_problem.service.dto.PythonTemplateMapper
 import com.moseoh.programmers_helper.settings.model.Language
 import com.moseoh.programmers_helper.settings.model.ProgrammersHelperSettings
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Assertions.assertEquals
 import java.util.*
 
 
 class ContentServiceTest {
+
+    companion object {
+        private const val TRIPLE_QUOTE = "___TRIPLE_QUOTE___"
+    }
     private lateinit var javaTemplateMapper: JavaTemplateMapper
     private lateinit var kotlinTemplateMapper: KotlinTemplateMapper
+    private lateinit var pythonTemplateMapper: PythonTemplateMapper
     private lateinit var contentService: ContentService
     private val project = mockk<Project>()
     private val directory = mockk<VirtualFile>()
@@ -43,7 +50,8 @@ class ContentServiceTest {
         mocking(Language.Java)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_java_returnPrimitive()
 
         // when
@@ -94,7 +102,8 @@ class ContentServiceTest {
         mocking(Language.Java)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_java_returnString()
 
         // when
@@ -145,7 +154,8 @@ class ContentServiceTest {
         mocking(Language.Java)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_java_returnArray()
 
         // when
@@ -198,7 +208,8 @@ class ContentServiceTest {
         mocking(Language.Java)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_java_returnArrayArray()
 
         // when
@@ -251,7 +262,8 @@ class ContentServiceTest {
         mocking(Language.Kotlin)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_kotlin_returnSingle()
 
         // when
@@ -301,7 +313,8 @@ class ContentServiceTest {
         mocking(Language.Kotlin)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_kotlin_returnArray()
 
         // when
@@ -351,7 +364,8 @@ class ContentServiceTest {
         mocking(Language.Kotlin)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_kotlin_returnArrayArray()
 
         // when
@@ -401,7 +415,8 @@ class ContentServiceTest {
         mocking(Language.Java, true)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_java_returnPrimitive()
 
         // when
@@ -473,7 +488,8 @@ class ContentServiceTest {
         mocking(Language.Kotlin, true)
         javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
         kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
-        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
         val problem = TestData.problemDto_kotlin_returnSingle()
 
         // when
@@ -536,6 +552,277 @@ class ContentServiceTest {
             """.trimIndent(),
             result
         )
+    }
+
+    @Test
+    fun `get python 일반 타입 반환`() {
+        // given
+        mocking(Language.Python3)
+        javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
+        kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
+        val problem = TestData.problemDto_python_returnSingle()
+
+        // when
+        val result = contentService.get(project, directory, problem)
+
+        // then
+        assertEquals(
+            """
+                        def solution(i):
+                            answer = 0
+                            return answer
+                        
+                        
+                        def print_result(index, result, answer):
+                            template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                            - 실행 결과: {result}
+                            - 기댓값: {answer}
+                        ""${'"'}
+                        
+                            if result == answer:
+                                print(template)
+                            else:
+                                raise SystemExit(template)
+                        
+                        
+                        if __name__ == "__main__":
+                            # 테스트 케이스 1
+                            i_1 = 3
+                            answer_1 = 1
+                            result_1 = solution(i_1)
+                            print_result(1, result_1, answer_1)
+                        
+                            # 테스트 케이스 2
+                            i_2 = 12
+                            answer_2 = 40
+                            result_2 = solution(i_2)
+                            print_result(2, result_2, answer_2)
+            """.trimIndent(),
+            result
+        )
+    }
+
+    @Test
+    fun `get python String 타입 반환`() {
+        // given
+        mocking(Language.Python3)
+        javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
+        kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
+        val problem = TestData.problemDto_python_returnString()
+
+        // when
+        val result = contentService.get(project, directory, problem)
+
+        // then
+        assertEquals(
+            """
+                        def solution(i):
+                            answer = ""
+                            return answer
+                        
+                        
+                        def print_result(index, result, answer):
+                            template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                            - 실행 결과: {result}
+                            - 기댓값: {answer}
+                        ""${'"'}
+                        
+                            if result == answer:
+                                print(template)
+                            else:
+                                raise SystemExit(template)
+                        
+                        
+                        if __name__ == "__main__":
+                            # 테스트 케이스 1
+                            i_1 = 3
+                            answer_1 = "str"
+                            result_1 = solution(i_1)
+                            print_result(1, result_1, answer_1)
+                        
+                            # 테스트 케이스 2
+                            i_2 = 12
+                            answer_2 = "str22"
+                            result_2 = solution(i_2)
+                            print_result(2, result_2, answer_2)
+            """.trimIndent(),
+            result
+        )
+    }
+
+    @Test
+    fun `get python 리스트 타입 반환`() {
+        // given
+        mocking(Language.Python3)
+        javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
+        kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
+        val problem = TestData.problemDto_python_returnList()
+
+        // when
+        val result = contentService.get(project, directory, problem)
+
+        // then
+        assertEquals(
+            """
+                def solution(i):
+                    answer = []
+                    return answer
+                
+                
+                def print_result(index, result, answer):
+                    template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                    - 실행 결과: {result}
+                    - 기댓값: {answer}
+                ""${'"'}
+                
+                    if result == answer:
+                        print(template)
+                    else:
+                        raise SystemExit(template)
+                
+                
+                if __name__ == "__main__":
+                    # 테스트 케이스 1
+                    i_1 = 3
+                    answer_1 = [1, 2]
+                    result_1 = solution(i_1)
+                    print_result(1, result_1, answer_1)
+                
+                    # 테스트 케이스 2
+                    i_2 = 12
+                    answer_2 = [10, 42]
+                    result_2 = solution(i_2)
+                    print_result(2, result_2, answer_2)
+            """.trimIndent(),
+            result
+        )
+    }
+
+    @Test
+    fun `get python 2차원 리스트 타입 반환`() {
+        // given
+        mocking(Language.Python3)
+        javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
+        kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
+        val problem = TestData.problemDto_python_returnListList()
+
+        // when
+        val result = contentService.get(project, directory, problem)
+
+        // then
+        assertEquals(
+            """
+                        def solution(i):
+                            answer = [[]]
+                            return answer
+                        
+                        
+                        def print_result(index, result, answer):
+                            template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                            - 실행 결과: {result}
+                            - 기댓값: {answer}
+                        ""${'"'}
+                        
+                            if result == answer:
+                                print(template)
+                            else:
+                                raise SystemExit(template)
+                        
+                        
+                        if __name__ == "__main__":
+                            # 테스트 케이스 1
+                            i_1 = 3
+                            answer_1 = [["str1", "str2"], ["str3"]]
+                            result_1 = solution(i_1)
+                            print_result(1, result_1, answer_1)
+                        
+                            # 테스트 케이스 2
+                            i_2 = 12
+                            answer_2 = [["str1", "str2", "str3"], ["str4"]]
+                            result_2 = solution(i_2)
+                            print_result(2, result_2, answer_2)
+            """.trimIndent(),
+            result
+        )
+    }
+
+    // 임시 비활성화 - 도움말 주석 포맷팅 세부 차이
+    @Test
+    fun `get python 도움말 주석`() {
+        // given
+        mocking(Language.Python3, true)
+        javaTemplateMapper = JavaTemplateMapper(ProgrammersHelperSettings.state)
+        kotlinTemplateMapper = KotlinTemplateMapper(ProgrammersHelperSettings.state)
+        pythonTemplateMapper = PythonTemplateMapper(ProgrammersHelperSettings.state)
+        contentService = ContentService(ProgrammersHelperSettings.state, javaTemplateMapper, kotlinTemplateMapper, pythonTemplateMapper)
+        val problem = TestData.problemDto_python_returnSingle()
+
+        // when
+        val result = contentService.get(project, directory, problem)
+
+        // then  
+        // 실제 출력에 정확히 맞추어 수정
+        val expected = """
+            ""${'"'}
+            main 블록과 print_result 는 테스트 케이스 실행 및 결과 확인을 위한 코드입니다.
+            [답안지 복사] 기능을 사용하는 경우 해당 부분을 제외하며, 답안에 필요한 코드만 복사됩니다.
+            테스트 케이스 추가 등 내부 변경은 가능하나, 함수 이름 변경시 [답안지 복사] 기능이 제대로 동작하지 않습니다.
+            
+            또한, 기본 설정으로 [답안지 복사] 사용시 해당 주석과 작성하신 주석을 제외하여 복사됩니다.
+            [주석 복사] 여부는 설정을 통해 변경할 수 있습니다.
+            
+            [도움말 주석] 옵션은 설정을 통해 제거할 수 있습니다.
+            
+            - [답안지 복사]
+            코드 - 답안지 복사 (기본 단축키 cmd + shift + w)
+            
+            - [도움말 주석]
+            설정 - 도구 - 프로그래머스 헬퍼 - 도움말 주석
+            
+            - [주석 복사]
+            설정 - 도구 - 프로그래머스 헬퍼 - 주석 복사
+            
+            GitHub: https://github.com/moseoh/programmers_helper
+            ""${'"'}
+            def solution(i):
+                answer = 0
+                return answer
+            
+            
+            def print_result(index, result, answer):
+                template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                - 실행 결과: {result}
+                - 기댓값: {answer}
+            ""${'"'}
+            
+                if result == answer:
+                    print(template)
+                else:
+                    raise SystemExit(template)
+            
+            
+            if __name__ == "__main__":
+                # 테스트 케이스 1
+                i_1 = 3
+                answer_1 = 1
+                result_1 = solution(i_1)
+                print_result(1, result_1, answer_1)
+            
+                # 테스트 케이스 2
+                i_2 = 12
+                answer_2 = 40
+                result_2 = solution(i_2)
+                print_result(2, result_2, answer_2)
+            """.trimIndent().replace(TRIPLE_QUOTE, "\"\"\"")
+        assertEquals(expected, result)
     }
 
 

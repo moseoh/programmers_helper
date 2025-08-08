@@ -21,15 +21,16 @@
     <ul>
       <li>Automatically generate files and examples from a Programmers problem URL</li>
       <li>Format code for easy pasting on the Programmers website</li>
-      <li>Supports Java and Kotlin languages</li>
+      <li>Supports Java, Kotlin, and Python languages</li>
     </ul>
-    <p>Please note that this plugin is specifically designed for Java and Kotlin languages, and there are no plans to support additional languages in the future. Boost your productivity and enhance your problem-solving experience on the Programmers platform with the Programmers Helper plugin.</p>
+    <p>Boost your productivity and enhance your problem-solving experience on the Programmers platform with the Programmers Helper plugin.</p>
   ]]></description>
 
   <change-notes><![CDATA[
-        <h2>Fixed</h2>
+        <h2>Added</h2>
         <ul>
-            <li>'displayName' attribute issue in 'LanguageConfigurable'.</li>
+            <li>Python language support</li>
+            <li>Tools > Programmers Helper menu integration</li>
         </ul>
     ]]>
   </change-notes>

@@ -8,9 +8,9 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.components.service
 import com.moseoh.programmers_helper._common.PluginBundle.get
-import com.moseoh.programmers_helper._common.PluginBundle.lazy
 import com.moseoh.programmers_helper.actions.copy_answer.service.JavaCopyAnswerService
 import com.moseoh.programmers_helper.actions.copy_answer.service.KotlinCopyAnswerService
+import com.moseoh.programmers_helper.actions.copy_answer.service.PythonCopyAnswerService
 import com.moseoh.programmers_helper.settings.model.Language
 import com.moseoh.programmers_helper.settings.model.ProgrammersHelperSettings
 import java.awt.Toolkit
@@ -26,6 +26,7 @@ class CopyAnswerAction : AnAction(
     private val settings = ProgrammersHelperSettings.state
     private val javaCopyAnswerService = service<JavaCopyAnswerService>()
     private val kotlinCopyAnswerService = service<KotlinCopyAnswerService>()
+    private val pythonCopyAnswerService = service<PythonCopyAnswerService>()
 
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project
@@ -61,6 +62,7 @@ class CopyAnswerAction : AnAction(
     private fun convert(inputCode: String): String = when (settings.language) {
         Language.Kotlin -> kotlinCopyAnswerService.convert(inputCode)
         Language.Java -> javaCopyAnswerService.convert(inputCode)
+        Language.Python3 -> pythonCopyAnswerService.convert(inputCode)
     }
 
 }
