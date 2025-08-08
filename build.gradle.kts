@@ -27,11 +27,11 @@ dependencies {
         testFramework(TestFrameworkType.Platform)
     }
 
-    implementation("org.freemarker:freemarker:2.3.33")
-    implementation("org.jsoup:jsoup:1.15.4")
+    implementation("org.freemarker:freemarker:2.3.34")
+    implementation("org.jsoup:jsoup:1.18.3")
 
-    testImplementation("io.mockk:mockk:1.13.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")
+    testImplementation("io.mockk:mockk:1.13.16")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
     testImplementation("junit:junit:4.13.2")
 }
 
