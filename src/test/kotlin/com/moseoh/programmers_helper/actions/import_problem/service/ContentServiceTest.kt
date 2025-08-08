@@ -431,7 +431,7 @@ class ContentServiceTest {
                  * - [주석 복사]
                  *   설정 - 도구 - 프로그래머스 헬퍼 - 주석 복사
                  *
-                 * GitHub: https://github.com/azqazq195/programmers_helper
+                 * GitHub: https://github.com/moseoh/programmers_helper
                  */
                 class n2배열자르기 {
                     public static void main(String[] args) {
@@ -503,7 +503,7 @@ class ContentServiceTest {
                  * - [주석 복사]
                  *   설정 - 도구 - 프로그래머스 헬퍼 - 주석 복사
                  *
-                 * GitHub: https://github.com/azqazq195/programmers_helper
+                 * GitHub: https://github.com/moseoh/programmers_helper
                  */
                 fun main() {
                     fun printResult(index: Int, result: Int, answer: Int) {
