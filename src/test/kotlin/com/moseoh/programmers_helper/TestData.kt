@@ -229,6 +229,145 @@ class TestData {
         """.trimIndent()
         }
 
+        fun problemDto_python_returnSingle(): ProblemDto {
+            return ProblemDto(
+                title = "n^2 배열 자르기",
+                content = """
+                    def solution(i):
+                        answer = 0
+                        return answer
+                """.trimIndent(),
+                testCases = listOf(
+                    mapOf(
+                        "i" to "3",
+                        "result" to "1",
+                    ),
+                    mapOf(
+                        "i" to "12",
+                        "result" to "40",
+                    ),
+                ),
+                answerName = "result"
+            )
+        }
+
+        fun problemDto_python_returnString(): ProblemDto {
+            return ProblemDto(
+                title = "n^2 배열 자르기",
+                content = """
+                    def solution(i):
+                        answer = ""
+                        return answer
+                """.trimIndent(),
+                testCases = listOf(
+                    mapOf(
+                        "i" to "3",
+                        "result" to "str",
+                    ),
+                    mapOf(
+                        "i" to "12",
+                        "result" to "str22",
+                    ),
+                ),
+                answerName = "result"
+            )
+        }
+
+        fun problemDto_python_returnList(): ProblemDto {
+            return ProblemDto(
+                title = "n^2 배열 자르기",
+                content = """
+                    def solution(i):
+                        answer = []
+                        return answer
+                """.trimIndent(),
+                testCases = listOf(
+                    mapOf(
+                        "i" to "3",
+                        "result" to "[1, 2]",
+                    ),
+                    mapOf(
+                        "i" to "12",
+                        "result" to "[10, 42]",
+                    ),
+                ),
+                answerName = "result"
+            )
+        }
+
+        fun problemDto_python_returnListList(): ProblemDto {
+            return ProblemDto(
+                title = "n^2 배열 자르기",
+                content = """
+                    def solution(i):
+                        answer = [[]]
+                        return answer
+                """.trimIndent(),
+                testCases = listOf(
+                    mapOf(
+                        "i" to "3",
+                        "result" to """[["str1", "str2"], ["str3"]]""",
+                    ),
+                    mapOf(
+                        "i" to "12",
+                        "result" to """[["str1", "str2", "str3"], ["str4"]]""",
+                    ),
+                ),
+                answerName = "result"
+            )
+        }
+
+        fun code_python(): String {
+            val tripleQuote = "\"\"\""
+            return """
+                    $tripleQuote
+                    주석
+                    $tripleQuote
+                    
+                    import re
+                    
+                    $tripleQuote
+                    주석
+                    $tripleQuote
+                    def print_result(index, result, answer):
+                        correct = result == answer
+                        if correct:
+                            print(f"\n테스트 케이스 {index}: 정답")
+                            print(f"\t- 실행 결과: {result}")
+                            print(f"\t- 기댓값: {answer}")
+                        else:
+                            raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
+                    
+                    
+                    def solution(s):
+                        # 주석
+                        # 주석
+                        # 주석
+                        answer = []
+                        $tripleQuote
+                            주석
+                        $tripleQuote
+                        return answer
+                    
+                    
+                    if __name__ == "__main__":
+                        # 테스트 케이스 1
+                        s_1 = "{{1,2,3},{2,1},{1,2,4,3},{2}}"
+                        answer_1 = [2, 1, 3, 4]
+                        result_1 = solution(s_1)
+                        print_result(1, result_1, answer_1)
+                        
+                        $tripleQuote
+                        주석
+                        $tripleQuote
+                        # 테스트 케이스 2
+                        s_2 = "{{4,2,3},{3},{2,3,4,1},{2,3}}"
+                        answer_2 = [3, 2, 4, 1]
+                        result_2 = solution(s_2)
+                        print_result(2, result_2, answer_2)
+            """.trimIndent()
+        }
+
         fun code_kotlin(): String {
             return """
                     package _5주차.튜플
