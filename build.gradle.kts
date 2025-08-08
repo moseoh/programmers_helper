@@ -2,12 +2,12 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.intellij.platform") version "2.0.0"
+    id("org.jetbrains.kotlin.jvm") version "2.2.0"
+    id("org.jetbrains.intellij.platform") version "2.7.0"
 }
 
 group = "com.moseoh"
-version = "0.0.18"
+version = "0.0.19"
 
 repositories {
     mavenCentral()
@@ -18,12 +18,11 @@ repositories {
 }
 dependencies {
     intellijPlatform {
-        intellijIdeaUltimate("2024.2")
+        intellijIdeaUltimate("2025.2")
 
         bundledPlugin("com.intellij.java")
         pluginVerifier()
         zipSigner()
-        instrumentationTools()
 
         testFramework(TestFrameworkType.Platform)
     }
@@ -36,23 +35,17 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 }
 
-tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
-    }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
-    }
+kotlin {
+    jvmToolchain(21)
+}
 
+tasks {
     withType<Test> {
         useJUnitPlatform()
     }
 
     patchPluginXml {
         sinceBuild.set("231.*")
-        untilBuild.set("242.*")
     }
 
     signPlugin {
