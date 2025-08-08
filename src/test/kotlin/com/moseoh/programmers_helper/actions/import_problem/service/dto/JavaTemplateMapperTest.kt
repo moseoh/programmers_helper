@@ -3,14 +3,14 @@ package com.moseoh.programmers_helper.actions.import_problem.service.dto
 import com.moseoh.programmers_helper.settings.model.ProgrammersHelperSettings
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 
 class JavaTemplateMapperTest {
     private lateinit var javaTemplateMapper: JavaTemplateMapper
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mockkObject(ProgrammersHelperSettings)
         every { ProgrammersHelperSettings.state } returns ProgrammersHelperSettings.State()
