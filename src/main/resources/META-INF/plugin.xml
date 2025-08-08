@@ -57,17 +57,21 @@
   </extensions>
 
   <actions>
-    <action id="programmers.helper.importProblem"
-      class="com.moseoh.programmers_helper.actions.import_problem.ImportProblemAction">
-      <add-to-group group-id="CodeMenu" anchor="last"/>
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift P"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta shift P"/>
-    </action>
-    <action id="programmers.helper.copyAnswerSheet"
-      class="com.moseoh.programmers_helper.actions.copy_answer.CopyAnswerAction">
-      <add-to-group group-id="CodeMenu" anchor="last"/>
-      <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift W"/>
-      <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta shift W"/>
-    </action>
+    <!-- Programmers Helper 메뉴 그룹 정의 -->
+    <group id="ProgrammersHelperGroup" text="Programmers Helper" description="Programmers Helper Actions" popup="true">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+      
+      <action id="programmers.helper.importProblem"
+        class="com.moseoh.programmers_helper.actions.import_problem.ImportProblemAction">
+        <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift P"/>
+        <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta shift P"/>
+      </action>
+      
+      <action id="programmers.helper.copyAnswerSheet"
+        class="com.moseoh.programmers_helper.actions.copy_answer.CopyAnswerAction">
+        <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift W"/>
+        <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta shift W"/>
+      </action>
+    </group>
   </actions>
 </idea-plugin>
