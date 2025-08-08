@@ -1,15 +1,13 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.1.10"
-    id("org.jetbrains.intellij.platform") version "2.2.1"
+    id("org.jetbrains.kotlin.jvm") version "2.2.0"
+    id("org.jetbrains.intellij.platform") version "2.7.0"
 }
 
 group = "com.moseoh"
-version = "0.1.0"
+version = "0.0.19"
 
 repositories {
     mavenCentral()
@@ -20,12 +18,11 @@ repositories {
 }
 dependencies {
     intellijPlatform {
-        intellijIdeaUltimate("2024.2")
+        intellijIdeaUltimate("2025.2")
 
         bundledPlugin("com.intellij.java")
         pluginVerifier()
         zipSigner()
-        instrumentationTools()
 
         testFramework(TestFrameworkType.Platform)
     }
@@ -36,29 +33,19 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.16")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
     testImplementation("junit:junit:4.13.2")
+}
 
+kotlin {
+    jvmToolchain(21)
 }
 
 tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
-    }
-
-    withType<KotlinCompile> {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
-        }
-    }
-
     withType<Test> {
         useJUnitPlatform()
     }
 
     patchPluginXml {
-        sinceBuild.set("242.1")
-        untilBuild.set("251.*")
+        sinceBuild.set("231.*")
     }
 
     signPlugin {
