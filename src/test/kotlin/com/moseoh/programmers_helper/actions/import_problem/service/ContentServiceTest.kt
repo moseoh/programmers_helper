@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Assertions.assertEquals
 import java.util.*
 
@@ -569,33 +570,35 @@ class ContentServiceTest {
         // then
         assertEquals(
             """
-                def print_result(index, result, answer):
-                    correct = result == answer
-                    if correct:
-                        print(f"\n테스트 케이스 {index}: 정답")
-                        print(f"\t- 실행 결과: {result}")
-                        print(f"\t- 기댓값: {answer}")
-                    else:
-                        raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
-                
-                
-                if __name__ == "__main__":
-                    # 테스트 케이스 1
-                    i_1 = 3
-                    answer_1 = 1
-                    result_1 = solution(i_1)
-                    print_result(1, result_1, answer_1)
-                
-                    # 테스트 케이스 2
-                    i_2 = 12
-                    answer_2 = 40
-                    result_2 = solution(i_2)
-                    print_result(2, result_2, answer_2)
-
-
-                def solution(i):
-                    answer = 0
-                    return answer
+                        def solution(i):
+                            answer = 0
+                            return answer
+                        
+                        
+                        def print_result(index, result, answer):
+                            template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                            - 실행 결과: {result}
+                            - 기댓값: {answer}
+                        ""${'"'}
+                        
+                            if result == answer:
+                                print(template)
+                            else:
+                                raise SystemExit(template)
+                        
+                        
+                        if __name__ == "__main__":
+                            # 테스트 케이스 1
+                            i_1 = 3
+                            answer_1 = 1
+                            result_1 = solution(i_1)
+                            print_result(1, result_1, answer_1)
+                        
+                            # 테스트 케이스 2
+                            i_2 = 12
+                            answer_2 = 40
+                            result_2 = solution(i_2)
+                            print_result(2, result_2, answer_2)
             """.trimIndent(),
             result
         )
@@ -617,33 +620,35 @@ class ContentServiceTest {
         // then
         assertEquals(
             """
-                def print_result(index, result, answer):
-                    correct = result == answer
-                    if correct:
-                        print(f"\n테스트 케이스 {index}: 정답")
-                        print(f"\t- 실행 결과: {result}")
-                        print(f"\t- 기댓값: {answer}")
-                    else:
-                        raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
-                
-                
-                if __name__ == "__main__":
-                    # 테스트 케이스 1
-                    i_1 = 3
-                    answer_1 = "str"
-                    result_1 = solution(i_1)
-                    print_result(1, result_1, answer_1)
-                
-                    # 테스트 케이스 2
-                    i_2 = 12
-                    answer_2 = "str22"
-                    result_2 = solution(i_2)
-                    print_result(2, result_2, answer_2)
-
-    
-                def solution(i):
-                    answer = ""
-                    return answer
+                        def solution(i):
+                            answer = ""
+                            return answer
+                        
+                        
+                        def print_result(index, result, answer):
+                            template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                            - 실행 결과: {result}
+                            - 기댓값: {answer}
+                        ""${'"'}
+                        
+                            if result == answer:
+                                print(template)
+                            else:
+                                raise SystemExit(template)
+                        
+                        
+                        if __name__ == "__main__":
+                            # 테스트 케이스 1
+                            i_1 = 3
+                            answer_1 = "str"
+                            result_1 = solution(i_1)
+                            print_result(1, result_1, answer_1)
+                        
+                            # 테스트 케이스 2
+                            i_2 = 12
+                            answer_2 = "str22"
+                            result_2 = solution(i_2)
+                            print_result(2, result_2, answer_2)
             """.trimIndent(),
             result
         )
@@ -665,14 +670,21 @@ class ContentServiceTest {
         // then
         assertEquals(
             """
+                def solution(i):
+                    answer = []
+                    return answer
+                
+                
                 def print_result(index, result, answer):
-                    correct = result == answer
-                    if correct:
-                        print(f"\n테스트 케이스 {index}: 정답")
-                        print(f"\t- 실행 결과: {result}")
-                        print(f"\t- 기댓값: {answer}")
+                    template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                    - 실행 결과: {result}
+                    - 기댓값: {answer}
+                ""${'"'}
+                
+                    if result == answer:
+                        print(template)
                     else:
-                        raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
+                        raise SystemExit(template)
                 
                 
                 if __name__ == "__main__":
@@ -687,11 +699,6 @@ class ContentServiceTest {
                     answer_2 = [10, 42]
                     result_2 = solution(i_2)
                     print_result(2, result_2, answer_2)
-
-
-                def solution(i):
-                    answer = []
-                    return answer
             """.trimIndent(),
             result
         )
@@ -713,33 +720,35 @@ class ContentServiceTest {
         // then
         assertEquals(
             """
-                    def print_result(index, result, answer):
-                        correct = result == answer
-                        if correct:
-                            print(f"\n테스트 케이스 {index}: 정답")
-                            print(f"\t- 실행 결과: {result}")
-                            print(f"\t- 기댓값: {answer}")
-                        else:
-                            raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
-                    
-                    
-                    if __name__ == "__main__":
-                        # 테스트 케이스 1
-                        i_1 = 3
-                        answer_1 = [["str1", "str2"], ["str3"]]
-                        result_1 = solution(i_1)
-                        print_result(1, result_1, answer_1)
-                    
-                        # 테스트 케이스 2
-                        i_2 = 12
-                        answer_2 = [["str1", "str2", "str3"], ["str4"]]
-                        result_2 = solution(i_2)
-                        print_result(2, result_2, answer_2)
-
-
-                    def solution(i):
-                        answer = [[]]
-                        return answer
+                        def solution(i):
+                            answer = [[]]
+                            return answer
+                        
+                        
+                        def print_result(index, result, answer):
+                            template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                            - 실행 결과: {result}
+                            - 기댓값: {answer}
+                        ""${'"'}
+                        
+                            if result == answer:
+                                print(template)
+                            else:
+                                raise SystemExit(template)
+                        
+                        
+                        if __name__ == "__main__":
+                            # 테스트 케이스 1
+                            i_1 = 3
+                            answer_1 = [["str1", "str2"], ["str3"]]
+                            result_1 = solution(i_1)
+                            print_result(1, result_1, answer_1)
+                        
+                            # 테스트 케이스 2
+                            i_2 = 12
+                            answer_2 = [["str1", "str2", "str3"], ["str4"]]
+                            result_2 = solution(i_2)
+                            print_result(2, result_2, answer_2)
             """.trimIndent(),
             result
         )
@@ -761,54 +770,57 @@ class ContentServiceTest {
 
         // then  
         // 실제 출력에 정확히 맞추어 수정
-        val expected = """$TRIPLE_QUOTE
-main 블록과 print_result 는 테스트 케이스 실행 및 결과 확인을 위한 코드입니다.
-[답안지 복사] 기능을 사용하는 경우 해당 부분을 제외하며, 답안에 필요한 코드만 복사됩니다.
-테스트 케이스 추가 등 내부 변경은 가능하나, 함수 이름 변경시 [답안지 복사] 기능이 제대로 동작하지 않습니다.
-
-또한, 기본 설정으로 [답안지 복사] 사용시 해당 주석과 작성하신 주석을 제외하여 복사됩니다.
-[주석 복사] 여부는 설정을 통해 변경할 수 있습니다.
-
-[도움말 주석] 옵션은 설정을 통해 제거할 수 있습니다.
-
-- [답안지 복사]
-코드 - 답안지 복사 (기본 단축키 cmd + shift + w)
-
-- [도움말 주석]
-설정 - 도구 - 프로그래머스 헬퍼 - 도움말 주석
-
-- [주석 복사]
-설정 - 도구 - 프로그래머스 헬퍼 - 주석 복사
-
-GitHub: https://github.com/moseoh/programmers_helper
-$TRIPLE_QUOTE
-def print_result(index, result, answer):
-    correct = result == answer
-    if correct:
-        print(f"\n테스트 케이스 {index}: 정답")
-        print(f"\t- 실행 결과: {result}")
-        print(f"\t- 기댓값: {answer}")
-    else:
-        raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
-
-
-if __name__ == "__main__":
-    # 테스트 케이스 1
-    i_1 = 3
-    answer_1 = 1
-    result_1 = solution(i_1)
-    print_result(1, result_1, answer_1)
-
-    # 테스트 케이스 2
-    i_2 = 12
-    answer_2 = 40
-    result_2 = solution(i_2)
-    print_result(2, result_2, answer_2)
-
-
-def solution(i):
-    answer = 0
-    return answer
+        val expected = """
+            ""${'"'}
+            main 블록과 print_result 는 테스트 케이스 실행 및 결과 확인을 위한 코드입니다.
+            [답안지 복사] 기능을 사용하는 경우 해당 부분을 제외하며, 답안에 필요한 코드만 복사됩니다.
+            테스트 케이스 추가 등 내부 변경은 가능하나, 함수 이름 변경시 [답안지 복사] 기능이 제대로 동작하지 않습니다.
+            
+            또한, 기본 설정으로 [답안지 복사] 사용시 해당 주석과 작성하신 주석을 제외하여 복사됩니다.
+            [주석 복사] 여부는 설정을 통해 변경할 수 있습니다.
+            
+            [도움말 주석] 옵션은 설정을 통해 제거할 수 있습니다.
+            
+            - [답안지 복사]
+            코드 - 답안지 복사 (기본 단축키 cmd + shift + w)
+            
+            - [도움말 주석]
+            설정 - 도구 - 프로그래머스 헬퍼 - 도움말 주석
+            
+            - [주석 복사]
+            설정 - 도구 - 프로그래머스 헬퍼 - 주석 복사
+            
+            GitHub: https://github.com/moseoh/programmers_helper
+            ""${'"'}
+            def solution(i):
+                answer = 0
+                return answer
+            
+            
+            def print_result(index, result, answer):
+                template = f""${'"'}테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+                - 실행 결과: {result}
+                - 기댓값: {answer}
+            ""${'"'}
+            
+                if result == answer:
+                    print(template)
+                else:
+                    raise SystemExit(template)
+            
+            
+            if __name__ == "__main__":
+                # 테스트 케이스 1
+                i_1 = 3
+                answer_1 = 1
+                result_1 = solution(i_1)
+                print_result(1, result_1, answer_1)
+            
+                # 테스트 케이스 2
+                i_2 = 12
+                answer_2 = 40
+                result_2 = solution(i_2)
+                print_result(2, result_2, answer_2)
             """.trimIndent().replace(TRIPLE_QUOTE, "\"\"\"")
         assertEquals(expected, result)
     }

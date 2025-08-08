@@ -1,15 +1,21 @@
 <#if dto.helpComment?has_content>
 ${dto.helpComment}
 </#if>
+def ${dto.functionName}(<#list dto.testCaseDtos[0].values as value>${value.name}<#if value_has_next>, </#if></#list>):
+    ${dto.functionContent}
+
+
 <#if dto.useMain>
 def print_result(index, result, answer):
-    correct = result == answer
-    if correct:
-        print(f"\n테스트 케이스 {index}: 정답")
-        print(f"\t- 실행 결과: {result}")
-        print(f"\t- 기댓값: {answer}")
+    template = f"""테스트 케이스 {index}: {"정답" if result == answer else "오답"}
+    - 실행 결과: {result}
+    - 기댓값: {answer}
+"""
+
+    if result == answer:
+        print(template)
     else:
-        raise Exception(f"\n테스트 케이스 {index}: 오답\n\t- 실행 결과: {result}\n\t- 기댓값: {answer}")
+        raise SystemExit(template)
 
 
 if __name__ == "__main__":
@@ -25,9 +31,4 @@ if __name__ == "__main__":
 
 </#if>
 </#list>
-
-
-
 </#if>
-def ${dto.functionName}(<#list dto.testCaseDtos[0].values as value>${value.name}<#if value_has_next>, </#if></#list>):
-    ${dto.functionContent}
