@@ -1,98 +1,70 @@
-name: CI/CD, Release Workflow
+name: Release
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "v*"
 
 jobs:
-  build_and_test:
+  release:
     runs-on: ubuntu-latest
-    
+
     permissions:
-      checks: write
-      pull-requests: write
-    
+      contents: write
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'corretto'
+          java-version: "21"
+          distribution: "corretto"
 
-      - name: Cache Gradle dependencies
-        uses: ./.github/actions/cache-gradle
+      - uses: ./.github/actions/cache-gradle
         with:
           cache-key-prefix: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - run: chmod +x gradlew
 
-      - name: Build
-        run: ./gradlew build
-
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: |
-            build/test-results/**/*.xml
-
-  build_plugin_and_release_and_publish:
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'corretto'
-
-      - name: Cache Gradle dependencies
-        uses: ./.github/actions/cache-gradle
-        with:
-          cache-key-prefix: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build plugin
-        run: ./gradlew buildPlugin
-
-      - name: Extract version from build.gradle
-        id: get_version
-        run: |
-          echo "VERSION=$(grep '^version' build.gradle.kts | awk -F'\"' '{print $2}')" >> $GITHUB_ENV
-
-      - name: Create GitHub release
+      # 1. GitHub Release 먼저 생성 (release notes 자동 생성)
+      - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
-          draft: false
-          prerelease: false
+          generate_release_notes: true
+          draft: true
 
-      - name: Upload plugin to release
-        uses: actions/upload-release-asset@v1
+      # 2. Release body 가져와서 plugin.xml에 주입
+      - name: Update plugin.xml change-notes
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/distributions/programmers_helper-${{ env.VERSION }}.zip
-          asset_name: programmers_helper-${{ env.VERSION }}.zip
-          asset_content_type: application/zip
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Release body 가져오기 (markdown → HTML 변환)
+          RELEASE_BODY=$(gh api repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }} --jq '.body')
 
-      - name: Publish plugin to IntelliJ Marketplace
-        run: ./gradlew publishPlugin
+          # Markdown을 HTML로 변환
+          RELEASE_HTML=$(echo "$RELEASE_BODY" | sed \
+            -e 's/^## \(.*\)$/<h2>\1<\/h2>/g' \
+            -e 's/^### \(.*\)$/<h3>\1<\/h3>/g' \
+            -e 's/^\* \(.*\)$/<li>\1<\/li>/g' \
+            -e 's/^- \(.*\)$/<li>\1<\/li>/g' | grep -v '^$' | tr '\n' ' ')
+
+          # plugin.xml의 change-notes 업데이트 (multiline 처리)
+          perl -i -0777 -pe "s|<change-notes>.*?</change-notes>|<change-notes><![CDATA[$RELEASE_HTML]]></change-notes>|s" \
+            src/main/resources/META-INF/plugin.xml
+
+      # 3. 빌드 및 퍼블리시
+      - run: ./gradlew build
+
+      - run: ./gradlew buildPlugin
+
+      - run: ./gradlew publishPlugin
         env:
           INTELLIJ_PUBLISH_TOKEN: ${{ secrets.INTELLIJ_PUBLISH_TOKEN }}
-          INTELLIJ_PUBLISH_CHANNEL: ${{ secrets.INTELLIJ_PUBLISH_CHANNEL }}
+
+      # 4. Release를 publish하고 zip 파일 업로드
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          files: build/distributions/*.zip

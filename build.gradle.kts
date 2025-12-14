@@ -62,6 +62,49 @@ tasks {
 
     publishPlugin {
         token.set(System.getenv("INTELLIJ_PUBLISH_TOKEN"))
-        channels.set(listOf(System.getenv("INTELLIJ_PUBLISH_CHANNEL")))
+        channels.set(listOf("stable"))
     }
+}
+
+fun bumpVersion(type: String) {
+    val file = file("build.gradle.kts")
+    val content = file.readText()
+    val regex = """version = "(\d+)\.(\d+)\.(\d+)"""".toRegex()
+    val match = regex.find(content) ?: error("Version not found")
+    val (major, minor, patch) = match.destructured.toList().map { it.toInt() }
+
+    val (newMajor, newMinor, newPatch) = when (type) {
+        "major" -> Triple(major + 1, 0, 0)
+        "minor" -> Triple(major, minor + 1, 0)
+        else -> Triple(major, minor, patch + 1)
+    }
+
+    val newVersion = "$newMajor.$newMinor.$newPatch"
+    val newContent = content.replace(match.value, """version = "$newVersion"""")
+    file.writeText(newContent)
+    println("$major.$minor.$patch → $newVersion")
+}
+
+tasks.register("bumpPatch") {
+    group = "versioning"
+    description = "Bump patch version (0.0.x)"
+    doLast { bumpVersion("patch") }
+}
+
+tasks.register("bumpMinor") {
+    group = "versioning"
+    description = "Bump minor version (0.x.0)"
+    doLast { bumpVersion("minor") }
+}
+
+tasks.register("bumpMajor") {
+    group = "versioning"
+    description = "Bump major version (x.0.0)"
+    doLast { bumpVersion("major") }
+}
+
+tasks.register("printVersion") {
+    group = "versioning"
+    description = "Print current version"
+    doLast { println(version) }
 }
