@@ -28,7 +28,7 @@ dependencies {
     }
 
     implementation("org.freemarker:freemarker:2.3.34")
-    implementation("org.jsoup:jsoup:1.18.3")
+    implementation("org.jsoup:jsoup:1.21.2")
 
     testImplementation("io.mockk:mockk:1.13.16")
     
