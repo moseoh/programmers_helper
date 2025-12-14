@@ -30,7 +30,7 @@ dependencies {
     implementation("org.freemarker:freemarker:2.3.34")
     implementation("org.jsoup:jsoup:1.21.2")
 
-    testImplementation("io.mockk:mockk:1.13.16")
+    testImplementation("io.mockk:mockk:1.14.7")
     
     // JUnit 5 (Jupiter) - complete test framework
     testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.1")
