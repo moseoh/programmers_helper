@@ -53,12 +53,9 @@ jobs:
           perl -i -0777 -pe "s|<change-notes>.*?</change-notes>|<change-notes><![CDATA[$RELEASE_HTML]]></change-notes>|s" \
             src/main/resources/META-INF/plugin.xml
 
-      # 3. 빌드 / 패키징 / 검증 후 퍼블리시
+      # 3. 빌드 후 퍼블리시
       - name: Build plugin
         run: ./gradlew clean buildPlugin
-
-      - name: Verify plugin
-        run: ./gradlew verifyPlugin
 
       - name: Publish plugin
         run: ./gradlew publishPlugin

@@ -17,14 +17,16 @@ git push -u origin chore/release
 gh pr create --title "chore: release v$(./gradlew printVersion -q)" --label release --fill
 gh pr merge --admin --squash --delete-branch
 
-# 3. main에서 태그 생성 및 푸시
+# 3. main에서 로컬 검증 후 태그 생성 및 푸시
 git checkout main
 git pull
+./gradlew clean buildPlugin
+./gradlew verifyPlugin   # 로컬에서만 실행 (IDE 다운로드 발생 가능)
 git tag "v$(./gradlew printVersion -q)"
 git push --tags
 ```
 
-GitHub Actions가 태그 푸시 감지 → 자동으로 플러그인 패키징(`buildPlugin`) + 검증(`verifyPlugin`) + JetBrains Marketplace 퍼블리시 + GitHub Release 생성
+GitHub Actions가 태그 푸시 감지 → 자동으로 플러그인 패키징(`buildPlugin`) + JetBrains Marketplace 퍼블리시 + GitHub Release 생성
 
 | 버전          | 언제                  | 예시                  |
 | ------------- | --------------------- | --------------------- |
