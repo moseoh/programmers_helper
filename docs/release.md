@@ -24,7 +24,7 @@ git tag "v$(./gradlew printVersion -q)"
 git push --tags
 ```
 
-GitHub Actions가 태그 푸시 감지 → 자동으로 빌드 + JetBrains Marketplace 퍼블리시 + GitHub Release 생성
+GitHub Actions가 태그 푸시 감지 → 자동으로 플러그인 패키징(`buildPlugin`) + 검증(`verifyPlugin`) + JetBrains Marketplace 퍼블리시 + GitHub Release 생성
 
 | 버전          | 언제                  | 예시                  |
 | ------------- | --------------------- | --------------------- |
