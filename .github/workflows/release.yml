@@ -53,12 +53,12 @@ jobs:
           perl -i -0777 -pe "s|<change-notes>.*?</change-notes>|<change-notes><![CDATA[$RELEASE_HTML]]></change-notes>|s" \
             src/main/resources/META-INF/plugin.xml
 
-      # 3. 빌드 및 퍼블리시
-      - run: ./gradlew build
+      # 3. 빌드 후 퍼블리시
+      - name: Build plugin
+        run: ./gradlew clean buildPlugin
 
-      - run: ./gradlew buildPlugin
-
-      - run: ./gradlew publishPlugin
+      - name: Publish plugin
+        run: ./gradlew publishPlugin
         env:
           INTELLIJ_PUBLISH_TOKEN: ${{ secrets.INTELLIJ_PUBLISH_TOKEN }}
 
