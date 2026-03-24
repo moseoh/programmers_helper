@@ -27,7 +27,7 @@ jobs:
 
       - run: chmod +x gradlew
 
-      - run: ./gradlew build
+      - run: ./gradlew buildPlugin
 
       - uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()

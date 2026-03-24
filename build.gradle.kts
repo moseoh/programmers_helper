@@ -3,7 +3,7 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.3.0"
-    id("org.jetbrains.intellij.platform") version "2.10.5"
+    id("org.jetbrains.intellij.platform") version "2.11.0"
 }
 
 group = "com.moseoh"
@@ -40,6 +40,14 @@ dependencies {
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+}
+
+intellijPlatform {
+    pluginVerification {
+        ides {
+            recommended()
+        }
+    }
 }
 
 kotlin {
