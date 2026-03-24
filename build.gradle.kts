@@ -31,7 +31,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.22.1")
 
     testImplementation("io.mockk:mockk:1.14.7")
-    
+
     // JUnit 5 (Jupiter) - complete test framework
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.11.4")
@@ -40,6 +40,14 @@ dependencies {
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+}
+
+intellijPlatform {
+    pluginVerification {
+        ides {
+            recommended()
+        }
+    }
 }
 
 kotlin {
