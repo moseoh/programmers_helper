@@ -33,8 +33,8 @@ dependencies {
     testImplementation("io.mockk:mockk:1.14.9")
     
     // JUnit 5 (Jupiter) - complete test framework
-    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:6.0.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:6.0.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("junit:junit:4.13.2")  // IntelliJ Platform test framework requires JUnit 4
 
