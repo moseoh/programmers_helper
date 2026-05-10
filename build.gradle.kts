@@ -38,8 +38,8 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("junit:junit:4.13.2")  // IntelliJ Platform test framework requires JUnit 4
 
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.11.0")
 }
 
 intellijPlatform {
